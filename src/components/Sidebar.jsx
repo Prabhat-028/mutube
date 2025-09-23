@@ -1,9 +1,14 @@
 import { FaGraduationCap, FaHistory, FaHome, FaMusic, FaNewspaper, FaPodcast, FaShoppingBag, FaStopwatch, FaThumbsUp, FaVideo} from "react-icons/fa";
 import {  FaCircleDot, FaHeart, FaMound, FaTrophy } from "react-icons/fa6";
 import { MdFeaturedPlayList } from "react-icons/md";
+import { useSelector } from "react-redux";
 const Sidebar = () => {
+    const isMenuOpen = useSelector(store => store.app.isMenuOpen);
+    
+    //early return if isMenuOpen is false
+    if (!isMenuOpen) return null;
     return (
-      <div className="w-48 px-2 bg-stone-50 h-svh">
+      <div className="w-48 px-2 bg-white h-screen">
         <div className="pt-2 font-san font-semibold ">
           <h1 className="flex items-center">
             <FaHome className="mr-2" />
