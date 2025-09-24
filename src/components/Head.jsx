@@ -9,7 +9,7 @@ const Head = () => {
         dispatch(toggleMenu());
      };
     return (
-      <div className="grid grid-flow-col p-2 shadow-lg bg-white">
+      <div className="grid grid-flow-col p-2 shadow-lg bg-white sticky">
         <div className="flex col-span-1">
           <img
             className="h-8 cursor-pointer"

@@ -1,8 +1,10 @@
-import React,{useEffect} from 'react'
-import VideoList from './VideoList'
+import React,{useEffect,useState} from 'react'
+import VideoCard from './VideoCard'
 import { YOUTUBE_API } from '../utils/constants';
+import { Link } from 'react-router-dom';
 
 const VideoContainer = () => {
+    const [videos, setVideos] = useState([]);
 
     useEffect(() => {
         getVideos();
@@ -10,13 +12,18 @@ const VideoContainer = () => {
     const getVideos = async () => {
         const data = await fetch(YOUTUBE_API);
         const json = await data.json();
-        console.log("Printing movies data",json);
+        // console.log("Printing movies data", json.items);
+        setVideos(json.items);
     }
   return (
-      <div>
-          <VideoList/>
+    <div className="flex gap-2 flex-wrap flex-grow">
+      {videos.map((video) => (
+        <Link to={"/watch?v=" + video.id}>
+          <VideoCard key={video.id} info={video} />
+        </Link>
+      ))}
     </div>
-  )
+  );
 }
 
 export default VideoContainer
