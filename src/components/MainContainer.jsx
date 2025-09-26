@@ -11,8 +11,8 @@ const MainContainer = () => {
       }, [dispatch]);
     return (
         <div>
-            <ButtonList />
-            <VideoContainer/>
+            <ButtonList/>
+            <VideoContainer />
         </div>
     );
 };

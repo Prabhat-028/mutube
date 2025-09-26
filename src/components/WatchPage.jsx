@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { closeMenu } from "../utils/appSlice";
 import { useSearchParams } from "react-router-dom";
-import { FaDownload } from "react-icons/fa";
+import { FaComment, FaDownload, FaThumbsDown, FaThumbsUp} from "react-icons/fa";
+import Comment from "./Comment";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
@@ -94,82 +95,39 @@ const WatchPage = () => {
               </div>
             </div>
             <div className="flex gap-2">
-              <button className="px-4 py-2 bg-red-600 text-white font-semibold rounded- hover:bg-red-700">
+              <button className="px-4 py-2 bg-red-600 text-white font-semibold rounded-3xl hover:bg-red-700">
                 Subscribe
               </button>
-              <button className="flex gap-2 px-4 py-2 bg-white text-black font-semibold rounded-xl hover:bg-black hover:text-white">
+              <button className="flex gap-2 px-4 py-2 bg-white text-black font-semibold rounded-3xl hover:bg-black hover:text-white">
                 <FaDownload /> Download
               </button>
             </div>
           </div>
 
           {/* Likes / Comments summary */}
-          <div className=" items-center mt-4 space-x-4 text-white bg-black inline pl-2 pr-2 pt-1 pb-1">
-            <span>
-              👍 {Number(videoDetails.statistics.likeCount).toLocaleString()}
-            </span>
-            <span>
-              💬 {Number(videoDetails.statistics.commentCount).toLocaleString()}
-            </span>
+          <div className="flex items-center mt-4 space-x-4">
+            {/* Like Button */}
+            <button className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:bg-gray-100 transition">
+              <FaThumbsUp className="text-gray-600" />
+              <span className="text-gray-700 font-medium">
+                {Number(videoDetails.statistics.likeCount).toLocaleString()}
+              </span>
+            </button>
+            <button className="flex items-center px-4 py-2 rounded-full border border-gray-300 hover:bg-gray-100 transition">
+              <FaThumbsDown className="text-gray-600" />
+            </button>
+
+            {/* Comment Button */}
+            <button className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:bg-gray-100 transition">
+              <FaComment className="text-gray-600" />
+              <span className="text-gray-700 font-medium">
+                {Number(videoDetails.statistics.commentCount).toLocaleString()}
+              </span>
+            </button>
           </div>
         </div>
       )}
-
-      {/* Comments Section */}
-      <div className="mt-6">
-        <h2 className="text-lg font-semibold mb-4">
-          {comments.length} Comments
-        </h2>
-
-        {/* Add comment input */}
-        <div className="flex items-center mb-4 space-x-3">
-          <img
-            src="https://i.pravatar.cc/40"
-            alt="user avatar"
-            className="w-10 h-10 rounded-full"
-          />
-          <input
-            type="text"
-            placeholder="Add a public comment..."
-            className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-gray-500"
-          />
-          <button className="text-blue-600 font-semibold">Comment</button>
-        </div>
-
-        {/* Real comments list */}
-        <div className="space-y-4">
-          {comments.map((comment) => {
-            const snippet = comment.snippet.topLevelComment.snippet;
-            return (
-              <div key={comment.id} className="flex space-x-3">
-                <img
-                  src={snippet.authorProfileImageUrl}
-                  alt={snippet.authorDisplayName}
-                  className="w-10 h-10 rounded-full"
-                />
-                <div>
-                  <p className="font-semibold">{snippet.authorDisplayName}</p>
-                  <p className="text-gray-700">{snippet.textDisplay}</p>
-                  <p className="text-gray-500 text-sm mt-1">
-                    {snippet.likeCount} Likes •{" "}
-                    {new Date(snippet.publishedAt).toLocaleDateString()}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Load More Comments */}
-        {nextPageToken && (
-          <button
-            onClick={() => setNextPageToken(nextPageToken)}
-            className="mt-4 px-4 py-2 border rounded hover:bg-gray-100"
-          >
-            Load More Comments
-          </button>
-        )}
-      </div>
+      <Comment comments={comments} nextPageToken={nextPageToken}  />
     </div>
   );
 };

@@ -16,14 +16,14 @@ const VideoContainer = () => {
         setVideos(json.items);
     }
   return (
-    <div className="flex gap-2 flex-wrap flex-grow">
+    <div className="flex gap-2 flex-wrap flex-grow w-auto pl-8">
       {videos.map((video) => (
-        <Link to={"/watch?v=" + video.id}>
-          <VideoCard key={video.id} info={video} />
+        <Link key={video.id} to={"/watch?v=" + video.id}>
+          <VideoCard info={video} />
         </Link>
       ))}
     </div>
   );
 }
 
-export default VideoContainer
+export default VideoContainer;

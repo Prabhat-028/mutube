@@ -1,13 +1,33 @@
-import React from 'react'
-import { HamBurger_URL, NOTFICATION_LOGO_URL, USER_LOGO_URL, YOUTUBE_LOGO_URL } from '../utils/constants';
+import React,{useState,useEffect} from 'react'
+import { GOOGLE_API_KEY, HamBurger_URL, NOTFICATION_LOGO_URL, USER_LOGO_URL, YOUTUBE_LOGO_URL} from '../utils/constants';
 import { useDispatch } from 'react-redux';
 import { toggleMenu } from '../utils/appSlice';
 
 const Head = () => {
+    const [searchQuery, setSearchQuery] = useState("");
     const dispatch = useDispatch();
     const toggleMenuHandler = () => {
         dispatch(toggleMenu());
-     };
+    };
+    
+    useEffect(() => {
+        
+        const timer=setTimeout(() =>  getSearchQuery() , 200);
+        
+        return ()=>{
+            clearTimeout(timer);
+        }
+        
+
+    }, [searchQuery])
+    
+    const getSearchQuery = async () => {
+        const data = await fetch("https://www.googleapis.com/youtube/v3/search?part=snippet&q="+searchQuery+"&maxResults=5&key="+GOOGLE_API_KEY);
+        const json = await data.json();
+        console.log(json);
+    }
+
+
     return (
       <div className="grid grid-flow-col p-2 shadow-lg bg-white sticky">
         <div className="flex col-span-1">
@@ -23,7 +43,9 @@ const Head = () => {
           <input
             className="w-2/3 border border-gray-400 p-2 rounded-l-3xl shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)] focus:outline-none  focus:ring-1 focus:border-[0px] focus:border-b-blue-400"
             type="text"
-            placeholder=" Search"
+                    placeholder=" Search"
+                    value={searchQuery}
+                    onChange={(e)=>{setSearchQuery(e.target.value)}}
           />
           <button className=" border border-gray-400 py-2 px-5 rounded-r-3xl bg-gray-100">
             🔍
