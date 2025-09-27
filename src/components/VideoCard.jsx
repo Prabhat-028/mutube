@@ -10,7 +10,7 @@ const VideoCard = ({ info }) => {
   const { viewCount } = statistics;
 
   return (
-    <div className="w-[430px] cursor-pointer">
+    <div className="w-[430px] cursor-pointer flex flex-wrap">
       {/* Thumbnail */}
       <div className="relative rounded-xl overflow-hidden">
         <img
