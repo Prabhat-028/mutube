@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {Link} from "react-router-dom"
 import {
   GOOGLE_API_KEY,
   HamBurger_URL,
@@ -87,33 +88,36 @@ const Head = () => {
 
         {/* ✅ Suggestion Box */}
         {showSuggestions && (
-          <div className="absolute top-12 left-40 w-2/3 bg-white border rounded-lg shadow-lg z-50 ">
-            <ul className="py-2">
-              {suggestions.map((item, index) => (
-                <li
-                  className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                  key={index}
-                >
-                  <svg
-                    className="w-4 h-4 text-gray-500 mr-3"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
+          
+            <div className="absolute top-12 left-40 w-2/3 bg-white border rounded-lg shadow-lg z-50 ">
+              <ul className="py-2">
+                          {suggestions.map((item, index) => (
+                  <li
+                    className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                    
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                  <span className="text-sm text-gray-800 truncate">
-                    {item.snippet?.title}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+                    <svg
+                      className="w-4 h-4 text-gray-500 mr-3"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                    <span className="text-sm text-gray-800 truncate">
+                      {item.snippet?.title}
+                    </span>
+                  </li>
+                             
+                ))}
+              </ul>
+            </div>
+          
         )}
       </div>
 
